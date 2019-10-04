@@ -1,5 +1,6 @@
 require 'slack-ruby-bot'
 require 'dotenv'
+require 'yaml'
 
 require 'logger'
 
@@ -9,7 +10,8 @@ require 'pry'
 
 class PongBot < SlackRubyBot::Bot
   Dotenv.load
-  @log = Logger.new('./slack-mentainer.log', 'daily')
+  @config = YAML.load_file("./config.yaml")
+  @log = Logger.new("#{@config['logger']['log_dir']}/slack-mentainer.log", 'daily')
   @invite = SlackInvite.new
 
   Slack.configure do |config|
