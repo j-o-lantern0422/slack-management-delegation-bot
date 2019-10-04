@@ -13,7 +13,7 @@ class SlackInvite
     @token = ENV["SLACK_API_TOKEN"]
   end
 
-  def invite(mail: , name: )
+  def invite(mail: , name: nil)
     response = @conn.post do | req |
       req.body = {
         email: mail,
