@@ -1,3 +1,4 @@
 logger:
-  log_level: debug
+  level: info
   log_dir: "./logs"
+  rotate: "dairy"
