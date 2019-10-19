@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+
+Dir[File.expand_path("../libs/", __FILE__) << '/*.rb'].each do | file |
+  require file
+end
+
+require "pry"
+binding.pry
