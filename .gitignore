@@ -1,3 +1,5 @@
 vendor/bundle
 config.yaml
 logs/*.log
+
+.env
