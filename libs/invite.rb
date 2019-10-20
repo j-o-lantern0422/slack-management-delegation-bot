@@ -1,7 +1,8 @@
 require 'faraday'
+require 'dotenv'
 
 class SlackInvite
-  Dotenv.load("../.env")
+  Dotenv.load(".env")
   SLACK_USER_INVITE_API="https://#{ENV["WORKSPACE"]}.slack.com/api/users.admin.invite"
 
   def initialize
