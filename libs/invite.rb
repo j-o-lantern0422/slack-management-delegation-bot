@@ -11,7 +11,7 @@ class SlackInvite
       builder.use Faraday::Response::Logger
       builder.use Faraday::Adapter::NetHttp
     end
-    @token = ENV["SLACK_API_TOKEN"]
+    @token = ENV["SLACK_LEGACY_API_TOKEN"]
   end
 
   def invite(mail: , name: nil)
