@@ -1,7 +1,7 @@
 require 'faraday'
 require 'dotenv'
 
-class SlackInvite
+class Invite
   Dotenv.load(".env")
   SLACK_USER_INVITE_API="https://#{ENV["WORKSPACE"]}.slack.com/api/users.admin.invite"
 
@@ -24,6 +24,16 @@ class SlackInvite
       }
     end
 
-    response
+    format!(response)
+  end
+
+  def format!(response)
+    if JSON.parse(response.body)["ok"]
+      return "invite successed!"
+    else
+      return "invite faild. response is #{response.body}"
+    end
+
+    "panic"
   end
 end
