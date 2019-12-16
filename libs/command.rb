@@ -1,19 +1,22 @@
+require_relative './invite.rb'
 class Command
   def invite(call)
     command_line = call.split(" ")
     raise if command_line.first == "invite"
-    return invite_help if command_line.size < 2
+    return invite_help if command_line.size < 2 || command_line[2] == "help"
 
     mail = command_line[1]
     name = command_line[2]
 
     return "invalid mail address" if valid_mail_address?(mail)
 
+    Invite.new.invite(mail: mail, name: name)
+
   end
 
   private
     def invite_help
-      <<EOS
+      <<-"EOS"
       invite command help
       @bot invite : view this help
       @bot invite hoge@mail.com : invite mail send
