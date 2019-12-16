@@ -1,7 +1,8 @@
 require 'faraday'
+require 'dotenv'
 
-class SlackInvite
-  Dotenv.load("../.env")
+class Invite
+  Dotenv.load(".env")
   SLACK_USER_INVITE_API="https://#{ENV["WORKSPACE"]}.slack.com/api/users.admin.invite"
 
   def initialize
@@ -10,10 +11,10 @@ class SlackInvite
       builder.use Faraday::Response::Logger
       builder.use Faraday::Adapter::NetHttp
     end
-    @token = ENV["SLACK_API_TOKEN"]
+    @token = ENV["SLACK_LEGACY_API_TOKEN"]
   end
 
-  def invite(mail: , name: )
+  def invite(mail: , name: nil)
     response = @conn.post do | req |
       req.body = {
         email: mail,
@@ -23,6 +24,16 @@ class SlackInvite
       }
     end
 
-    response
+    format!(response)
+  end
+
+  def format!(response)
+    if JSON.parse(response.body)["ok"]
+      return "invite successed!"
+    else
+      return "invite faild. response is #{response.body}"
+    end
+
+    "panic"
   end
 end
